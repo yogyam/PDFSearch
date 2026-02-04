@@ -1,0 +1,20 @@
+# Secrets
+.env
+
+# Generated data
+data/chroma_db/
+data/pdfs/
+data/failed_files.txt
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
