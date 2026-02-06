@@ -12,7 +12,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 import pypdf
 import chromadb
-from scripts.ingest import extract_text_from_pdf, chunk_text, Chunk
+from ingest import extract_text_from_pdf, chunk_text, Chunk
 
 # Paths
 PDF_DIR = PROJECT_ROOT / "data" / "pdfs"

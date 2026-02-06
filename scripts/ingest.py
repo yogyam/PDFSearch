@@ -134,18 +134,22 @@ def ingest_pdfs():
         model_name="all-MiniLM-L6-v2"
     )
     
-    # Create or get collection
+    # Clear existing collection for fresh ingestion
+    try:
+        existing_collection = client.get_collection(name="pdf_chunks")
+        existing_count = existing_collection.count()
+        if existing_count > 0:
+            logger.info(f"Clearing {existing_count} existing chunks...")
+            client.delete_collection(name="pdf_chunks")
+    except Exception:
+        pass  # Collection doesn't exist yet
+    
+    # Create collection
     collection = client.get_or_create_collection(
         name="pdf_chunks",
         embedding_function=embedding_fn,
         metadata={"description": "PDF document chunks for semantic search"}
     )
-    
-    # Clear existing data for fresh ingestion
-    existing_count = collection.count()
-    if existing_count > 0:
-        logger.info(f"Clearing {existing_count} existing chunks...")
-        collection.delete(where={})
     
     # Scan for PDFs
     pdf_files = list(PDF_DIR.glob("*.pdf"))
